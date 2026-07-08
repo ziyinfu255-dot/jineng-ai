@@ -1,0 +1,3 @@
+﻿display_name: 课件封面图生成
+short_description: 生成课件营销封面、缩略图拼图、竖向卡片和商品图。
+default_prompt: 根据 PPT 导出的图片生成三种封面图和符合平台规格的商品图。
