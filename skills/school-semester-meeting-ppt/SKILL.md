@@ -1,8 +1,6 @@
 ---
 name: school-semester-meeting-ppt
-description: Generate Chinese kindergarten-to-primary-school semester class meeting and parent meeting PowerPoint courseware plans and PPTX decks. Use when the user asks for 2026 autumn opening class meetings, opening parent meetings, midterm parent meetings, final parent meetings, or similar homeroom teacher courseware for kindergarten through grade 6, especially when outputs need grade-specific structure, page-by-page text, illustration prompts, classroom interaction, teacher-friendly wording, and clean child-appropriate slide style.
-metadata:
-  short-description: 幼儿园到小学六年级班会和家长会课件生成
+description: Generate audience-calibrated, teacher-ready Chinese kindergarten-to-primary-school class meeting and parent meeting courseware frameworks, NotebookLM prompts, page-by-page scripts, image prompts, and PPTX decks. Use for opening/midterm/final meetings, grade-specific homeroom topics, commercially packaged teacher resources, or any request needing age-appropriate learning goals, visual direction, classroom language, interactions, teacher talk tracks, generation checks, or a copy-ready presentation prompt that teachers can use without rewriting.
 ---
 
 # School Semester Meeting PPT
@@ -16,7 +14,7 @@ Use this skill to create a reusable courseware product system for Chinese homero
 - Kindergarten small, middle, and senior classes.
 - Primary school grades 1 to 6.
 
-The output should feel directly usable by teachers, commercially suitable for courseware sales, and age-appropriate for the target students or parents.
+Make every output audience-first and ready to teach. A teacher should be able to open the deck, understand the flow, and deliver it without rewriting slide text or inventing missing activities.
 
 ## First Decisions
 
@@ -25,11 +23,33 @@ Before generating content, identify these inputs from the user request:
 - **Age group**: kindergarten small/middle/senior class, or primary grade 1-6.
 - **Meeting type**: opening class meeting, opening parent meeting, midterm parent meeting, final parent meeting.
 - **Audience**: students, parents, or both.
+- **Presenter**: usually a homeroom teacher; identify another presenter only when stated.
+- **Audience capability**: reading level, attention span, prior school experience, and ability to discuss or complete tasks.
+- **Classroom use**: lesson duration, delivery setting, interaction type, and any required student artifact.
 - **Page count**: default 30 pages for parent meetings, 30-40 pages for class meetings unless specified.
 - **Output type**: framework, NotebookLM prompt, page-by-page script, PPT text, image prompts, or complete PPTX.
 - **Visual style**: student-facing should be lively and illustrated; parent-facing should be clean, warm, professional, and teacher-like.
 
 Ask at most one concise question only if the age group or meeting type is missing and cannot be inferred.
+
+## Audience-First Delivery Contract
+
+For every framework, NotebookLM prompt, page script, or complete deck, read [references/audience-ready-courseware-spec.md](references/audience-ready-courseware-spec.md) and define these four modules before the page sequence:
+
+1. **Courseware basic information**: viewer, presenter, use case, teaching duration, exact page count, aspect ratio, classroom setting, and final student or parent action.
+2. **Learning goals**: observable goals limited by the viewer's developmental stage, literacy, attention span, and existing experience.
+3. **Overall visual goal**: age-appropriate style, text density, illustration realism, color system, recurring characters, projection readability, and forbidden aesthetics.
+4. **Generation checks**: exact count, complete pages, audience fit, teacher usability, interaction operability, visual consistency, and final artifact readiness.
+
+Treat topic references such as Grade 1 opening or Grade 2 time management as conditional examples beneath this contract, not as the general template.
+
+Make pages ready to deliver:
+
+- Finalize visible titles and classroom wording; do not leave placeholders such as "补充案例", "插入图片", or "教师自行发挥".
+- Give every interaction a clear teacher instruction, approximate duration, expected student response, and short transition back to the lesson.
+- Keep required materials minimal. Include printable content in the deck or label optional materials clearly.
+- Use speaker notes for 1-2 concise teacher sentences per page when supported.
+- Ensure the last pages produce a concrete takeaway, agreement, plan, card, checklist, or parent action rather than only a slogan.
 
 ## Product Matrix
 
@@ -75,19 +95,22 @@ Use the age group to decide content depth, examples, tone, and visual style.
 
 ### Grade 1
 
-- Becoming a primary school student.
-- Classroom rules.
-- Listening and sitting posture.
-- Homework habits.
-- Parent-child transition from kindergarten to school.
+- Transitioning emotionally and practically from kindergarten to primary school.
+- Building the identity: "I am a primary school student."
+- Becoming familiar with teachers, classmates, campus places, bells, and the school-day rhythm.
+- Learning concrete classroom routines: sitting, listening, raising a hand, speaking, queueing, recess, and organizing a schoolbag.
+- Learning safety, help-seeking, friendship, emotional expression, reading, and simple task habits.
+- Reassuring students before giving rules; avoid opening with scolding or dense discipline.
 
 ### Grade 2
 
 - Habit consolidation.
 - Reading accumulation.
 - Handwriting and neatness.
-- Time awareness.
-- Stable homework routines.
+- Time awareness and simple duration estimation.
+- Stable homework routines and simple task sequencing.
+- Concrete scenarios, short checklists, and brief judgment or planning activities.
+- Achievable student outputs that can be completed during class and used at home.
 
 ### Grade 3
 
@@ -193,6 +216,36 @@ Recommended sections:
 9. Next semester or next stage transition.
 10. Thanks and blessing.
 
+## Grade 1 Opening Class Meeting Route
+
+When the request concerns a Grade 1 opening class meeting, kindergarten-to-primary transition, or a NotebookLM prompt for new pupils, read [references/grade1-opening-class-meeting.md](references/grade1-opening-class-meeting.md).
+
+Use these core decisions:
+
+- Prefer a warm campus-growth journey over a training-camp or heavy level-clearing concept.
+- Start with emotional safety and identity, then introduce rules through the child's school-day scenes.
+- Organize the narrative as: welcome and feelings → new identity → campus and people → classroom habits → recess and safety → friendship and help-seeking → reading and tasks → class promise.
+- Use short, repeatable actions rather than abstract values.
+- Add a light interaction every 2-3 pages: choose a feeling, imitate a posture, introduce yourself, judge a scene, practise queueing, or rehearse polite words.
+- Keep the default at 30 pages when the user does not specify a count.
+- Treat market engagement carefully: high comments often signal requests for files or sharing, not independently verified teaching quality.
+- For a commercial package, default to editable PPT + lesson plan + teacher talk track + printable routine or goal cards.
+
+## Grade 2 Time Management Class Meeting Route
+
+When the request concerns Grade 2 time awareness, study planning, homework routines, or the theme "Becoming a Time-Management Expert," read [references/grade2-time-management-class-meeting.md](references/grade2-time-management-class-meeting.md).
+
+Use these core decisions:
+
+- Frame time management as calmly completing important tasks, not filling every minute or racing classmates.
+- Build the narrative as: contrasting daily scenes → understanding time → feeling and estimating duration → deciding sequence → morning and arrival routines → pre-class and lesson focus → recess planning → homework preparation and planning → focus and distraction control → next-day preparation → sleep rhythm → homework schedule → personal commitment.
+- Use real school and home scenes rather than abstract clock theory.
+- Add an experience, judgment, ordering, rehearsal, or planning interaction every 2-3 pages.
+- Use the canonical 20-page route when the user asks for 20 pages or does not provide a more specific structure.
+- End with a usable student artifact. For this route, default to a **homework schedule**, not a whole-day schedule.
+- Keep example times editable and present them as planning practice rather than a single required family timetable.
+- Avoid training-camp, level-clearing, ranking, speed competition, and reward-heavy visual metaphors.
+
 ## Slide Design Rules
 
 ### For Student-Facing Class Meetings
@@ -248,21 +301,47 @@ Avoid empty administrative language such as:
 
 If such wording is needed, translate it into concrete actions.
 
+## NotebookLM Prompt Construction
+
+Apply the **Audience-First Delivery Contract** before writing page details.
+
+Build a copy-ready NotebookLM prompt in this order:
+
+1. **Basic information**: title, viewer capability, presenter, use case, lesson duration, exact slide count, aspect ratio, classroom setting, and culminating action.
+2. **Learning goals**: list observable knowledge, action, emotional, and student-output goals appropriate to the viewer.
+3. **Visual system**: define an audience-specific style, palette, background, recurring characters, scene types, text density, text-image separation, projection readability, and forbidden aesthetics.
+4. **Page specifications**: for every page, provide the visible title, exact visible text, illustration scene, and interaction when applicable.
+5. **Generation checks**: restate the exact page count, critical page requirements, audience fit, teacher usability, character consistency, interaction operability, final artifact, and speaker-note requirements.
+
+Apply these rules:
+
+- Treat the requested page count as strict. State "do not add or remove pages" in the prompt.
+- Let the viewer's age and role control vocabulary, sentence length, abstraction, examples, text density, and interaction form.
+- Keep recurring characters visually consistent across the whole deck.
+- Make every content page contain both usable text and a matching scene-based visual.
+- Keep structural instructions out of the rendered slides, including labels such as "page title," "visible text," "visual description," and "interaction."
+- For student-facing decks, explicitly prohibit corporate-report styling and any theme the user has rejected, such as training camps or heavy level-clearing.
+- Ask for 1-2 short teacher-note sentences per page when speaker notes are supported, and state that notes must not appear in the visible body.
+- Make interaction notes executable: say what the teacher does, how long it takes, what students or parents do, and how the teacher closes it.
+- Include a final checklist that verifies exact count, the required culminating artifact, audience appropriateness, projection readability, teacher readiness, visual consistency, and complete page coverage.
+
 ## Output Formats
 
 When the user asks for a framework, output:
 
-- Courseware title.
-- Target audience.
-- Style direction.
+- Courseware basic information.
+- Audience-limited learning goals.
+- Overall visual goal.
 - Page-by-page 20/30/40-page outline.
-- Each page's core content and visual idea.
+- Each page's core content, final visible wording, visual idea, and executable interaction when applicable.
+- Generation checks and teacher-ready acceptance criteria.
 
 When the user asks for NotebookLM prompt, output:
 
 - A single copy-ready prompt in Chinese.
-- Include page count, style, audience, slide text, and picture description.
-- If requested, remove labels such as "page title" or "page text".
+- Follow the full sequence and constraints in **NotebookLM Prompt Construction**.
+- If the request is for a Grade 1 opening class meeting, use the reference route instead of the generic 30-page pattern.
+- If the request is for Grade 2 time management or homework planning, use the Grade 2 reference route.
 
 When the user asks for PPT content, output:
 
@@ -270,13 +349,15 @@ When the user asks for PPT content, output:
 - Slide title.
 - On-slide text.
 - Visual description.
-- Teacher talk track if needed.
+- Teacher talk track, executable interaction, timing, expected response, and transition when applicable.
 
 When the user asks for complete PPTX, generate the deck using the available PowerPoint workflow and verify:
 
 - Page count is correct.
 - Images or visual placeholders are present as required.
 - Text is readable.
+- Visible content contains no unfinished writing or asset placeholders.
+- Teacher notes and interaction instructions are complete when the deck requires them.
 - File can be opened or exported to thumbnails if PowerPoint is available.
 
 ## Recommended 30-Page Pattern
@@ -354,11 +435,16 @@ Use this when no specific page count is given.
 Before finalizing, check:
 
 - Is the age group clearly reflected?
+- Are vocabulary, text density, examples, and interactions limited by the actual viewers rather than a generic grade label?
 - Can a teacher use it directly in class or parent meeting?
+- Are interaction instructions, timing, expected responses, and transitions clear enough to run immediately?
+- Are all required materials already included or explicitly optional?
 - Is every page focused on one clear idea?
 - Is the language concrete and practical?
 - Are there interaction points for student-facing decks?
 - Is the style appropriate: lively for students, warm-professional for parents?
 - Is the content different enough from common market templates?
 - Are pictures supporting the text rather than replacing it?
-
+- Does the title communicate the exact grade, meeting moment, and teacher benefit?
+- Does the package reduce teacher preparation work with editable files, a lesson plan, talk track, or printable cards?
+- Are market signals described honestly without treating "求课件/求分享" comments as proof of instructional quality?
