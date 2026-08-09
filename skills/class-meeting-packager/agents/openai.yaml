@@ -1,6 +1,4 @@
 interface:
-  display_name: "班会资料包"
-  short_description: "把班会PDF或PPT整理成逐字稿与教案双Word成品的复用模板"
-  default_prompt: "Use $class-meeting-packager to turn this 班会 PDF/PPT into two Word documents: a verbatim script and a lesson plan."
-policy:
-  allow_implicit_invocation: true
+  display_name: "班会商业资料包"
+  short_description: "把班会课件整理成逐页逐字稿、购买预览、教案与营销文案"
+  default_prompt: "Use $class-meeting-packager to turn this class-meeting PPT into a detailed slide-by-slide script, a pre-purchase preview, and a school-style lesson plan."
