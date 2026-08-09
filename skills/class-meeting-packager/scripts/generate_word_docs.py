@@ -11,9 +11,13 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 
-def set_run_font(run, east_asia="宋体", size=12, bold=False, color=None):
-    run.font.name = "Times New Roman"
-    run._element.rPr.rFonts.set(qn("w:eastAsia"), east_asia)
+DEFAULT_FONT = "Hiragino Sans GB"
+
+
+def set_run_font(run, font_name=DEFAULT_FONT, size=12, bold=False, color=None):
+    run.font.name = font_name
+    for slot in ("w:ascii", "w:hAnsi", "w:eastAsia", "w:cs"):
+        run._element.rPr.rFonts.set(qn(slot), font_name)
     run.font.size = Pt(size)
     run.bold = bold
     if color:
@@ -49,19 +53,21 @@ def format_body_paragraph(paragraph, indent=True, spacing=1.42):
     pf.line_spacing = spacing
     pf.space_after = Pt(0)
     pf.space_before = Pt(0)
+    pf.widow_control = True
     if indent:
         pf.first_line_indent = Cm(0.74)
 
 
-def add_title(doc, title):
+def add_title(doc, title, font_name=DEFAULT_FONT):
     paragraph = doc.add_paragraph()
     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
     paragraph.paragraph_format.space_after = Pt(6)
+    paragraph.paragraph_format.keep_with_next = True
     run = paragraph.add_run(title)
-    set_run_font(run, east_asia="微软雅黑", size=18, bold=True, color="234B3A")
+    set_run_font(run, font_name=font_name, size=18, bold=True, color="234B3A")
 
 
-def add_board_table(doc, lines):
+def add_board_table(doc, lines, font_name=DEFAULT_FONT):
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = True
@@ -77,10 +83,10 @@ def add_board_table(doc, lines):
     paragraph.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
     paragraph.paragraph_format.line_spacing = 1.2
     run = paragraph.add_run("\n".join(lines))
-    set_run_font(run, east_asia="等线", size=10.5, color="4A463A")
+    set_run_font(run, font_name=font_name, size=10.5, color="4A463A")
 
 
-def build_doc(md_path, out_path, mode):
+def build_doc(md_path, out_path, mode, font_name=DEFAULT_FONT):
     lines = Path(md_path).read_text(encoding="utf-8").splitlines()
     doc = Document()
     sec = doc.sections[0]
@@ -90,8 +96,9 @@ def build_doc(md_path, out_path, mode):
     sec.right_margin = Cm(2.8)
 
     normal = doc.styles["Normal"]
-    normal.font.name = "Times New Roman"
-    normal._element.rPr.rFonts.set(qn("w:eastAsia"), "宋体")
+    normal.font.name = font_name
+    for slot in ("w:ascii", "w:hAnsi", "w:eastAsia", "w:cs"):
+        normal._element.rPr.rFonts.set(qn(slot), font_name)
     normal.font.size = Pt(12)
 
     title = ""
@@ -111,12 +118,12 @@ def build_doc(md_path, out_path, mode):
             continue
 
         if not doc.paragraphs:
-            add_title(doc, title)
+            add_title(doc, title, font_name=font_name)
 
         if stripped.startswith("```"):
             in_code = not in_code
             if not in_code and board_buffer:
-                add_board_table(doc, board_buffer)
+                add_board_table(doc, board_buffer, font_name=font_name)
                 board_buffer = []
             continue
 
@@ -133,8 +140,9 @@ def build_doc(md_path, out_path, mode):
             paragraph = doc.add_paragraph()
             paragraph.paragraph_format.space_before = Pt(8)
             paragraph.paragraph_format.space_after = Pt(2)
+            paragraph.paragraph_format.keep_with_next = True
             run = paragraph.add_run(current_heading)
-            set_run_font(run, east_asia="微软雅黑", size=13.5, bold=True, color="2E5A4A")
+            set_run_font(run, font_name=font_name, size=13.5, bold=True, color="2E5A4A")
             continue
 
         if stripped.startswith("### "):
@@ -142,8 +150,9 @@ def build_doc(md_path, out_path, mode):
             paragraph = doc.add_paragraph()
             paragraph.paragraph_format.space_before = Pt(6)
             paragraph.paragraph_format.space_after = Pt(1)
+            paragraph.paragraph_format.keep_with_next = True
             run = paragraph.add_run(current_heading)
-            set_run_font(run, east_asia="微软雅黑", size=12, bold=True, color="3D5C7A")
+            set_run_font(run, font_name=font_name, size=12, bold=True, color="3D5C7A")
             continue
 
         if stripped.startswith("- "):
@@ -154,15 +163,16 @@ def build_doc(md_path, out_path, mode):
             pf.space_before = Pt(0)
             pf.space_after = Pt(0)
             run = paragraph.add_run(stripped[2:].strip())
-            set_run_font(run, east_asia="宋体", size=11.5)
+            set_run_font(run, font_name=font_name, size=11.5)
             continue
 
         if stripped.startswith("**") and stripped.endswith("**") and stripped.count("**") == 2:
             paragraph = doc.add_paragraph()
             paragraph.paragraph_format.space_before = Pt(4)
             paragraph.paragraph_format.space_after = Pt(0)
+            paragraph.paragraph_format.keep_with_next = True
             run = paragraph.add_run(stripped[2:-2])
-            set_run_font(run, east_asia="微软雅黑", size=11.5, bold=True, color="444444")
+            set_run_font(run, font_name=font_name, size=11.5, bold=True, color="444444")
             continue
 
         short_centered = (
@@ -199,26 +209,49 @@ def build_doc(md_path, out_path, mode):
             paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
             paragraph.paragraph_format.first_line_indent = Cm(0)
         run = paragraph.add_run(stripped)
-        set_run_font(run, east_asia="宋体", size=12 if mode == "script" else 11.5)
+        set_run_font(run, font_name=font_name, size=12 if mode == "script" else 11.5)
 
+    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     doc.save(out_path)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Export class-meeting script and lesson-plan Markdown files to styled Word documents."
+        description="Export any subset of detailed script, preview script, and lesson plan to separate Word documents."
     )
-    parser.add_argument("--script-md", required=True, help="Path to the verbatim script Markdown file")
-    parser.add_argument("--lesson-md", required=True, help="Path to the lesson plan Markdown file")
-    parser.add_argument("--script-docx", required=True, help="Output path for the verbatim script Word file")
-    parser.add_argument("--lesson-docx", required=True, help="Output path for the lesson plan Word file")
-    return parser.parse_args()
+    parser.add_argument("--script-md", help="Path to the detailed script Markdown file")
+    parser.add_argument("--script-docx", help="Output path for the detailed script Word file")
+    parser.add_argument("--preview-md", help="Path to the preview script Markdown file")
+    parser.add_argument("--preview-docx", help="Output path for the preview script Word file")
+    parser.add_argument("--lesson-md", help="Path to the lesson plan Markdown file")
+    parser.add_argument("--lesson-docx", help="Output path for the lesson plan Word file")
+    parser.add_argument(
+        "--font",
+        default=DEFAULT_FONT,
+        help=f"Chinese font to write into every Word font slot (default: {DEFAULT_FONT})",
+    )
+    args = parser.parse_args()
+    pairs = (
+        ("--script-md", args.script_md, "--script-docx", args.script_docx),
+        ("--preview-md", args.preview_md, "--preview-docx", args.preview_docx),
+        ("--lesson-md", args.lesson_md, "--lesson-docx", args.lesson_docx),
+    )
+    for md_flag, md_path, out_flag, out_path in pairs:
+        if bool(md_path) != bool(out_path):
+            parser.error(f"{md_flag} and {out_flag} must be supplied together")
+    if not any((args.script_md, args.preview_md, args.lesson_md)):
+        parser.error("supply at least one Markdown/output pair")
+    return args
 
 
 def main():
     args = parse_args()
-    build_doc(args.script_md, args.script_docx, mode="script")
-    build_doc(args.lesson_md, args.lesson_docx, mode="lesson")
+    if args.script_md:
+        build_doc(args.script_md, args.script_docx, mode="script", font_name=args.font)
+    if args.preview_md:
+        build_doc(args.preview_md, args.preview_docx, mode="script", font_name=args.font)
+    if args.lesson_md:
+        build_doc(args.lesson_md, args.lesson_docx, mode="lesson", font_name=args.font)
 
 
 if __name__ == "__main__":
