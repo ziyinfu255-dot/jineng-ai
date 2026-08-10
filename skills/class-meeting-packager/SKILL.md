@@ -1,6 +1,6 @@
 ---
 name: class-meeting-packager
-description: "Generate commercial-ready Chinese K-12 class-meeting materials from PDF/PPT/PPTX courseware. Use for 主题班会、德育课、节气班会、常规教育 or opening-class courseware when Codex must create a slide-matched detailed teacher script, a short pre-purchase script preview, a school-style 10-section lesson plan, or optional Xiaohongshu marketing copy. Also use when exact slide-count reconciliation, classroom-ready interactions, reference-DOCX formatting, commercial packaging, or purchase-preview materials are requested."
+description: "Generate commercial-ready Chinese K-12 class-meeting materials from PDF/PPT/PPTX courseware. Use for 主题班会、德育课、节气班会、常规教育 or opening-class courseware when Codex must create a slide-matched detailed teacher script, a short pre-purchase script preview, or a school-style 10-section lesson plan. Also use when exact slide-count reconciliation, classroom-ready interactions, reference-DOCX formatting, commercial packaging, or purchase-preview materials are requested."
 ---
 
 # Class Meeting Packager
@@ -12,7 +12,6 @@ Turn completed courseware into teacher-ready and sale-ready materials:
 - `主题-课堂逐字稿.docx`: full teacher edition, matched to every actual slide.
 - `主题-逐字稿预览.docx`: condensed pre-purchase preview.
 - `主题-教案设计.docx`: school-style lesson plan.
-- Three Xiaohongshu posts when marketing copy is requested.
 
 Keep each Word document separate. Never merge the preview, detailed script, and lesson plan into one file.
 
@@ -35,17 +34,13 @@ Use when a teacher only needs classroom materials:
 
 ### Commercial package
 
-Use when the request mentions selling, purchase preview, product packaging, Xiaohongshu, listing, or commercial-ready files:
+Use when the request mentions selling, purchase preview, product packaging, listing, or commercial-ready files:
 
 - detailed slide-by-slide script;
 - condensed script preview;
 - lesson plan.
 
 Keep all final editions. When regenerating the detailed script, never overwrite or delete the preview unless the user explicitly requests removal.
-
-### Marketing add-on
-
-When Xiaohongshu copy is requested, also read [references/xiaohongshu-marketing-copy.md](references/xiaohongshu-marketing-copy.md).
 
 ## 3. Write the detailed script
 
@@ -123,7 +118,6 @@ Requirements:
 
 - [references/default-output-standard.md](references/default-output-standard.md): deliverable matrix, naming, and reusable prompts.
 - [references/script-editions-and-qa.md](references/script-editions-and-qa.md): detailed/preview writing rules, timing, and QA gates.
-- [references/xiaohongshu-marketing-copy.md](references/xiaohongshu-marketing-copy.md): three-post marketing structure and accuracy rules.
 
 ## Resource
 
