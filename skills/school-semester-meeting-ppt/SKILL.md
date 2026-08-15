@@ -277,6 +277,16 @@ Use these core decisions:
 - Avoid dense paragraphs, tiny text, complex tables, and too many colors.
 - Use illustrations as supporting visuals, not as the only teaching content.
 
+### Cover Page Theme Style
+
+- Treat slide 1 as a theme cover, not a normal content page or agenda page.
+- Make the main title the strongest visual element on the slide. The title should feel close to poster scale: very large, bold, and easy to read from the back of a classroom.
+- For 16:9 covers, use a large Chinese display style such as heavy bold, brush-like, hand-drawn, rounded, or strong block lettering according to the audience. As a practical target, the main title should occupy about 30-45% of the slide width and height, often split into 2-3 short lines.
+- Keep the cover hierarchy clear: small top eyebrow for grade/semester/use case, huge central theme title, small bottom information for presenter and date.
+- Use cover illustrations as atmosphere and context, such as watercolor campus paths, schoolbags, flowers, stars, children walking to school, classroom windows, or a school building. Do not let illustrations compete with title readability.
+- Match the title style to the audience, but prioritize an unmistakable theme over decoration or childlike styling.
+- In NotebookLM prompts and PPTX generation, explicitly state that slide 1 must be a theme page with oversized, high-contrast title typography, not a small-title corporate cover.
+
 ## Page Content Rules
 
 Write page content in direct classroom language.
